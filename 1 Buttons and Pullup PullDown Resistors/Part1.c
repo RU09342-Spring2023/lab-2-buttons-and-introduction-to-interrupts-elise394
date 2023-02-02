@@ -2,23 +2,24 @@
  *  Pull-Up Resistor Configuration
  *
  *  Created on: Jan 31, 2023
+ *  Changed made: Feb 2, 2023
  *      Author: Russell
- *      Version: 1.0
+ *      Version: 1.1
  *
  *      This example will show you how to configure the Pull-up Resistor for your button inputs.
  *
  *      You can comment out specific lines of code to determine the effect of the pull-up resistors on the button performance.
  *
  *      You should also notice a distinct delay between the button being pressed and the LED blinking
+ *
+ *      Version 1.0 developed by Trafford, changes made by Elise Heim
  */
 
 #include <msp430.h>
 
 void gpioInit();
 
-/**
- * main.c
- */
+
 int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
@@ -28,13 +29,16 @@ int main(void)
 
     PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default high-impedance mode
                                             // to activate previously configured port settings
-
+  //  P6OUT &= ~BIT6; these two lines turn 6.6 and 1.0 to off
+   // P1OUT &= ~BIT0;
 
     while(1)
     {
-        if (P2IN & BIT3)            // If S2 (P2.3) is pressed
+
+
+        if ((P2IN & BIT3)==0)            // If S2 (P2.3) is NOT pressed
             P6OUT ^= BIT6;          // Toggle P6.6
-        if (P4IN & BIT1)            // If S1 (P4.1) is pressed
+        if ((P4IN & BIT1)==0)            // If S1 (P4.1) is NOT pressed
             P1OUT ^= BIT0;          // Toggle P1.0
         __delay_cycles(100000);             // Delay for 100000*(1/MCLK)=0.1s
     }
