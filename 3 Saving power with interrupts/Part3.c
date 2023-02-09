@@ -3,13 +3,15 @@
  *
  *  Created on: Jan 30, 2023
  *      Author: Russell Trafford
- *      Version: 1.0
+ *      Version: 1.00
  *
  *      This example will show you the power consumption and energy consumption differences between polling and using an interrupt to turn on a processor.
  *
  *      Your task for this part of the lab is to capture two screenshots of the code running in Energy Trace, one with software polling, one with interrupts.
  *
  *      You will need to update the README for this part with the screenshots.
+ *
+ *      no changes made by Elise Heim
  */
 
 #include <msp430.h>
