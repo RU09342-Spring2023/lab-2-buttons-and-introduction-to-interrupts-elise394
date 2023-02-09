@@ -3,7 +3,7 @@
  *
  *  Created on: Jan 30, 2023
  *      Author: Russell Trafford
- *      Version: 1.0
+ *      Version: 1.1
  *
  *      This example will show you how to configure an Interrupt and Interrupt Service Routine.
  *
@@ -12,6 +12,8 @@
  *      it should move to the Green LED. If the button is pressed again, it should move to the Red LED again.
  *
  *      There have been some "todo" notes which can be helpful in finding things to change in the code.
+ *
+ *      Changes made by Elise Heim
  */
 
 
@@ -28,6 +30,11 @@ int main(void)
     P1DIR |= BIT0;                          // Set P1.0 to output direction
 
     // @TODO You need to add in the configuration for the Green LED
+//elise
+      P6OUT &= ~BIT6;                         // elise Clear P6.6 output latch for a defined power-on state
+      P6DIR |= BIT6;
+//elise
+
 
     P2OUT |= BIT3;                          // Configure P2.3 as pulled-up
     P2REN |= BIT3;                          // P2.3 pull-up register enable
@@ -47,8 +54,10 @@ int main(void)
         // @TODO You will need to modify this code to change between blinking the Red LED or the Green LED
         if (ToggleEnable)
             P1OUT ^= BIT0;                  // P1.0 = toggle
+            P6OUT &= ~BIT6; //elise
         else
             P1OUT &= ~BIT0;                 // Set P1.0 to 0
+            P6OUT|= 1; //elise, set p6.6 to 1
         __delay_cycles(100000);
     }
 }
